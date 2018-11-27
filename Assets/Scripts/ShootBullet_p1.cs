@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShootBullet : MonoBehaviour
+public class ShootBullet_p1 : MonoBehaviour
 {
 
     public GameObject bullet;
@@ -20,12 +20,12 @@ public class ShootBullet : MonoBehaviour
     {
 
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             chilBulletTwo = Fire();
 
         }
-            
+
     }
     GameObject Fire()
     {
@@ -45,5 +45,4 @@ public class ShootBullet : MonoBehaviour
         //childBullet(bullet, 1.0f);
 
     }
-
 }

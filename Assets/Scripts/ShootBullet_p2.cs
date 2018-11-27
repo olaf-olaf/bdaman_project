@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShootBullet : MonoBehaviour
+public class ShootBullet_p2 : MonoBehaviour
 {
 
     public GameObject bullet;
@@ -25,7 +25,7 @@ public class ShootBullet : MonoBehaviour
             chilBulletTwo = Fire();
 
         }
-            
+
     }
     GameObject Fire()
     {
