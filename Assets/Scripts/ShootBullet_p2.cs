@@ -12,14 +12,12 @@ public class ShootBullet_p2 : MonoBehaviour
     public GameObject player;
     public float spawnDistance;
     public Transform bulletSpawn;
-    private GameObject chilBulletTwo;
+    private GameObject chilBulletTwo; 
     //private bool bulletShot = false;
 
     // Update is called once per frame
     void Update()
-    {
-
-
+    { 
         if (Input.GetKeyDown(KeyCode.Space))
         {
             chilBulletTwo = Fire();
@@ -36,6 +34,7 @@ public class ShootBullet_p2 : MonoBehaviour
 
         GameObject childBullet = Instantiate(bullet, spawnPos, playerRotation);
         childBullet.GetComponent<Rigidbody>().velocity = childBullet.transform.forward * 20;
+        childBullet.GetComponent<BulletBehaviour>().shooter = "Player2";
 
         return childBullet;
 

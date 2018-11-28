@@ -36,13 +36,11 @@ public class ShootBullet_p1 : MonoBehaviour
 
         GameObject childBullet = Instantiate(bullet, spawnPos, playerRotation);
         childBullet.GetComponent<Rigidbody>().velocity = childBullet.transform.forward * 20;
-
+        childBullet.GetComponent<BulletBehaviour>().shooter = "Player1"; 
         return childBullet;
 
 
-
-        // Destroy the bullet after 2 seconds
-        //childBullet(bullet, 1.0f);
+         
 
     }
 }
