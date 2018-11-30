@@ -17,7 +17,19 @@ public class GameController : MonoBehaviour
     public int gameLevel;
 
 
-    // these values need to be set in the game nmenu
+    // these values need to be set in the game menu
+    /*         NAME           Default               Range
+     * movement_speed           120                  100, 150 
+     * accuracy                  1                   1, 50  
+     * fire_rate                 0.3                 0.1, 0.8
+     * power                     20                  18, 25
+     * reload time               3                   2, 4
+     * mag size                  5                   3, 12 
+    */
+
+
+
+
     public float p1_movement_speed;
     public float p1_accuracy;
     public float p1_fire_rate;
@@ -74,20 +86,20 @@ public class GameController : MonoBehaviour
     }
 
     void setPlayerAttributes()
-    {
-        //GameObject player1 = GameObject.FindGameObjectWithTag("Player1");
+    { 
+        player1.GetComponent<MovePlayer>().speed = p1_movement_speed;
         player1.GetComponent<PlayerController>().power = p1_power;
         player1.GetComponent<PlayerController>().magazineSize = p1_mag_size;
         player1.GetComponent<PlayerController>().reloadTime = p1_reload_time;
         player1.GetComponent<PlayerController>().accuracy = p1_accuracy;
-        player1.GetComponent<PlayerController>().fire_rate = p1_fire_rate;
+        player1.GetComponent<PlayerController>().fireRate = p1_fire_rate;
 
-        //GameObject player2 = GameObject.FindGameObjectWithTag("Player2");
+        player2.GetComponent<MovePlayer>().speed = p2_movement_speed;
         player2.GetComponent<PlayerController>().power = p2_power;
         player2.GetComponent<PlayerController>().magazineSize = p2_mag_size;
         player2.GetComponent<PlayerController>().reloadTime = p2_reload_time;
         player2.GetComponent<PlayerController>().accuracy = p2_accuracy;
-        player2.GetComponent<PlayerController>().fire_rate = p2_fire_rate; 
+        player2.GetComponent<PlayerController>().fireRate = p2_fire_rate; 
     }
 
 
