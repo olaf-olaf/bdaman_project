@@ -6,18 +6,24 @@ using UnityEngine.UI;
 public class partSelector : MonoBehaviour {
     public GameObject[] sqauds;
     public GameObject[] feetParts;
-    public GameObject[] cannonparts;
+    public GameObject[] cannonParts;
+    public GameObject[] armParts;
+
+    private int armIndex;
     private int bodyPart;
     private int feetIndex;
     private int cannonIndex;
 
     // Use this for initialization
     void Start () {
+        armIndex = 0;
         bodyPart = 0;
         feetIndex = 0;
         cannonIndex = 0;
         sqauds[bodyPart].GetComponent<Renderer>().material.color = Color.green;
         feetParts[feetIndex].SetActive(true);
+        cannonParts[cannonIndex].SetActive(true);
+        armParts[armIndex].SetActive(true);
     }
 	
 	// Update is called once per frame
@@ -30,47 +36,38 @@ public class partSelector : MonoBehaviour {
 
         // Select feet
         if(bodyPart == 2 && Input.GetKeyDown("right")){
-            selectFeetPart();
+            selectPart(ref feetParts, ref feetIndex);
 
         }
 
         // Select cannon
         if (bodyPart == 1 && Input.GetKeyDown("right"))
         {
-            selectCannonPart();
+            selectPart(ref cannonParts, ref cannonIndex);
+        }
+
+        // Select arms
+        if (bodyPart == 0 && Input.GetKeyDown("right"))
+        {
+            selectPart(ref armParts, ref armIndex);
         }
     }
 
-    void selectCannonPart(){
-
-        cannonIndex = (cannonIndex + 1) % cannonparts.Length;
-        for (int i = 0; i < cannonparts.Length; i++)
+    void selectPart(ref GameObject[] parts, ref int index){
+        index = (index + 1) % parts.Length;
+        for (int i = 0; i < parts.Length; i++)
         {
-            if (i == cannonIndex)
+            if (i == index)
             {
-                cannonparts[i].SetActive(true);
+                parts[i].SetActive(true);
             }
             else
             {
-                cannonparts[i].SetActive(false);
-            }
-        }
-
-    }
-
-
-    void selectFeetPart(){
-        feetIndex = (feetIndex + 1) % feetParts.Length;
-        for (int i = 0; i < feetParts.Length; i++)
-        {
-            if (i == feetIndex)
-            {
-                feetParts[i].SetActive(true);
-            } else {
-                feetParts[i].SetActive(false);
+                parts[i].SetActive(false);
             }
         }
     }
+
 
     void selectBodySection(){
         bodyPart = (bodyPart + 1) % sqauds.Length;
@@ -87,7 +84,5 @@ public class partSelector : MonoBehaviour {
 
             }
         }
-
-
     }
 }
