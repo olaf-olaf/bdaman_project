@@ -16,21 +16,24 @@ public class GameController : MonoBehaviour
 
     public int gameLevel;
 
+
+    // these values need to be set in the game nmenu
     public float p1_movement_speed;
     public float p1_accuracy;
     public float p1_fire_rate;
     public float p1_power;
-    public float p1_reload_speed;
-    public float p1_mag_size;
+    public float p1_reload_time;
+    public int p1_mag_size;
 
     public float p2_movement_speed;
     public float p2_accuracy;
     public float p2_fire_rate;
     public float p2_power;
-    public float p2_reload_speed;
-    public float p2_mag_size;
+    public float p2_reload_time;
+    public int p2_mag_size;
 
-
+    GameObject player1; 
+    GameObject player2;
     private float p1_health = 100f;
     private float p2_health = 100f;
 
@@ -45,7 +48,13 @@ public class GameController : MonoBehaviour
         else
         {
             instance = this;
-        }
+        } 
+
+
+        player1 = GameObject.FindGameObjectWithTag("Player1");
+        player2 = GameObject.FindGameObjectWithTag("Player2");
+
+
         //setup all UpdateDelegates here to avoid runtime memory allocation
         UpdateDelegates = new UpdateDelegate[(int)GameMode.Count];
 
@@ -53,17 +62,39 @@ public class GameController : MonoBehaviour
         UpdateDelegates[(int)GameMode.DHB] = UpdateDHBState;
         UpdateDelegates[(int)GameMode.Puck] = UpdatePuckState;
         UpdateDelegates[(int)GameMode.ShootGap] = UpdateShootGapState;
-         
+
+
+        // set general player attributes
+        setPlayerAttributes();
+
+
         // should be altered according to the defined gameMode
         gameMode = GameMode.DHB;
         awakeDHB();
     }
-     
+
+    void setPlayerAttributes()
+    {
+        //GameObject player1 = GameObject.FindGameObjectWithTag("Player1");
+        player1.GetComponent<PlayerController>().power = p1_power;
+        player1.GetComponent<PlayerController>().magazineSize = p1_mag_size;
+        player1.GetComponent<PlayerController>().reloadTime = p1_reload_time;
+        player1.GetComponent<PlayerController>().accuracy = p1_accuracy;
+        player1.GetComponent<PlayerController>().fire_rate = p1_fire_rate;
+
+        //GameObject player2 = GameObject.FindGameObjectWithTag("Player2");
+        player2.GetComponent<PlayerController>().power = p2_power;
+        player2.GetComponent<PlayerController>().magazineSize = p2_mag_size;
+        player2.GetComponent<PlayerController>().reloadTime = p2_reload_time;
+        player2.GetComponent<PlayerController>().accuracy = p2_accuracy;
+        player2.GetComponent<PlayerController>().fire_rate = p2_fire_rate; 
+    }
+
+
     void awakeDHB()
     {
 
-        // set the health bars for the players
-
+        // set the health bars for the players 
 
     }
 

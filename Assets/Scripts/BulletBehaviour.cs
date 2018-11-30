@@ -6,7 +6,7 @@ using UnityEngine;
 public class BulletBehaviour : MonoBehaviour {
 
     public GameObject bulletInstance;
-    public float m_MaxDamage = 100f;                    // The amount of damage done if the explosion is centred on a tank.
+    public float m_MaxDamage;                    // The amount of damage done if the explosion is centred on a tank.
     public float m_ExplosionForce = 1000f;              // The amount of force added to a tank at the centre of the explosion.
     public float m_MaxLifeTime = 2f;                    // The time in seconds before the shell is removed.  
     public string shooter;
@@ -21,7 +21,7 @@ public class BulletBehaviour : MonoBehaviour {
     }
     private void OnCollisionEnter(Collision collision)
     {
-
+        //behaviour when hitting the opponent 
         if ((collision.gameObject.tag == "Player1" | collision.gameObject.tag == "Player2") & collision.gameObject.tag != shooter)
         {
             var hit = collision.gameObject; 
