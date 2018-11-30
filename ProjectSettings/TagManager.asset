@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Player1
   - Player2
+  - feetspeed
+  - feetbalance
+  - feetaccuracy
   layers:
   - Default
   - TransparentFX
