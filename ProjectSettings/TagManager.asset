@@ -9,6 +9,11 @@ TagManager:
   - feetspeed
   - feetbalance
   - feetaccuracy
+  - cannonbalanced
+  - cannonheavy
+  - armsbalanced
+  - armscapacity
+  - armsspeed
   layers:
   - Default
   - TransparentFX
