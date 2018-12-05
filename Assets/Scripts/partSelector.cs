@@ -3,14 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class partSelector : MonoBehaviour {
+public class partSelector : MonoBehaviour
+{
     public GameObject[] sqauds;
     public GameObject[] feetParts;
     public GameObject[] cannonParts;
     public GameObject[] armParts;
     public GameObject currentSpeedDisplay;
+    public GameObject currentAccuracyDisplay;
+    public GameObject currentFireRateDisplay;
+
+    private Vector3 maxDisplayLoc;
+    private float maxDisplaywidth;
     private Dictionary<string, float[]> partstats = new Dictionary<string, float[]>();
-    private float[] current_stats = { 120, 1, 0.3f, 20, 3, 5 };
+    private float[] current_stats = { 120, 25, 0.3f, 20, 3, 5 };
+
 
 
     private int armIndex;
@@ -28,7 +35,10 @@ public class partSelector : MonoBehaviour {
      * reload time               3                   2, 4
      * mag size                  5                   3, 12 
     */
-    void Start () {
+    void Start()
+    {
+        maxDisplaywidth = currentSpeedDisplay.GetComponent<Renderer>().bounds.size.x;
+        maxDisplayLoc = currentSpeedDisplay.transform.position;
         armIndex = 0;
         bodyPart = 0;
         feetIndex = 0;
@@ -38,40 +48,40 @@ public class partSelector : MonoBehaviour {
         feetParts[feetIndex].SetActive(true);
         cannonParts[cannonIndex].SetActive(true);
         armParts[armIndex].SetActive(true);
-        partstats.Add("feetspeed", new float[]      {20, 0, 0, 0, 0, 0 });
-        partstats.Add("feetbalance", new float[]    {0, 0, 0.2f, 0, 0, 0 });
-        partstats.Add("feetaccuracy", new float[]   {0, 10, 0, 0, 0, 0 });
-        partstats.Add("cannonbalanced", new float[] {0, 0, 0.2f, 0, 0, 0 });
-        partstats.Add("cannonheavy", new float[]    {0, 0, 0, 2, 0, 0 });
-        partstats.Add("armsbalanced", new float[]   {0, 0, 0.1f, 0, 0, 0 });
-        partstats.Add("armscapacity", new float[]   {0, 0, 0, 0, 0, 5 });
-        partstats.Add("armsspeed", new float[]      {10, 0, 0, 2, 0, 0 });
-
-
-
+        partstats.Add("feetspeed", new float[] { 20, 0, 0, 0, 0, 0 });
+        partstats.Add("feetbalance", new float[] { 0, 0, 0.2f, 0, 0, 0 });
+        partstats.Add("feetaccuracy", new float[] { 0, 15, 0, 0, 0, 0 });
+        partstats.Add("cannonbalanced", new float[] { 0, 0, 0.2f, 0, 0, 0 });
+        partstats.Add("cannonheavy", new float[] { 0, 0, 0, 2, 0, 0 });
+        partstats.Add("armsbalanced", new float[] { 0, 0, 0.1f, 0, 0, 0 });
+        partstats.Add("armscapacity", new float[] { 0, 0, 0, 0, 0, 5 });
+        partstats.Add("armsspeed", new float[] { 10, 0, 0, 2, 0, 0 });
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
 
         // Scroll through different sections of the body
-        if (Input.GetKeyDown(KeyCode.DownArrow)) {
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
             selectBodySection();
-         }
+        }
 
         // Select feet
-        if(bodyPart == 2 && Input.GetKeyDown("right")){
+        if (bodyPart == 2 && Input.GetKeyDown("right"))
+        {
             selectPart(ref feetParts, ref feetIndex);
-            getStatsPlayerOne();
+            updateStatsPart(ref feetParts);
             displayCurrentStats();
 
         }
 
         // Select cannon
         if (bodyPart == 1 && Input.GetKeyDown("right"))
-        {   
+        {
             selectPart(ref cannonParts, ref cannonIndex);
-            getStatsPlayerOne();
+            updateStatsPart(ref cannonParts);
             displayCurrentStats();
         }
 
@@ -79,7 +89,7 @@ public class partSelector : MonoBehaviour {
         if (bodyPart == 0 && Input.GetKeyDown("right"))
         {
             selectPart(ref armParts, ref armIndex);
-            getStatsPlayerOne();
+            updateStatsPart(ref armParts);
             displayCurrentStats();
         }
 
@@ -87,50 +97,45 @@ public class partSelector : MonoBehaviour {
     }
 
 
-    void displayCurrentStats(){
-        int maxSpeed = 150;
-        float currentSpeedRatio = current_stats[0] / maxSpeed;
-        currentSpeedDisplay.transform.localScale = new Vector3(currentSpeedRatio, 1,1);
+    void displayCurrentStats()
+    {
+
+        displayStat(ref currentSpeedDisplay, 150, 0);
+        displayStat(ref currentAccuracyDisplay, 50, 1);
+        displayStat(ref currentFireRateDisplay, 0.8f, 2);
     }
 
-    //TODO: Create a helper function that takes a reference to get rid of three
-    //times the same code.
-    void getStatsPlayerOne()
+    void displayStat(ref GameObject display, float maxValue, int statIndex)
     {
-        for (int i = 0; i < feetParts.Length; i++)
-        {
-            if (feetParts[i].activeSelf)
-            {
-                for (int j = 0; j < current_stats.Length; j++)
-                {
-                    current_stats[j] = current_stats[j] + partstats[feetParts[i].tag][j];
-                }
-            }
-        }
-        for (int i = 0; i < cannonParts.Length; i++){
-            if (cannonParts[i].activeSelf)
-            {
-                for (int j = 0; j < current_stats.Length; j++)
-                {
-                    current_stats[j] = current_stats[j] + partstats[cannonParts[i].tag][j];
-                }
-            }
-        }
-        for (int i = 0; i < armParts.Length; i++)
-        {
-            if (armParts[i].activeSelf)
-            {
-                for (int j = 0; j < current_stats.Length; j++)
-                {
-                    current_stats[j] = current_stats[j] + partstats[armParts[i].tag][j];
-                }
-            }
-        }
-        // Check if it works.
-        for (int j = 0; j < current_stats.Length; j++){
-            print(current_stats[j]);
-        }
 
+        float currentRatio = current_stats[statIndex] / maxValue;
+        float offset = maxDisplaywidth - (maxDisplaywidth * currentRatio);
+        float newLoc = maxDisplayLoc.x - offset / 2;
+        display.transform.localScale = new Vector3(currentRatio, 1, 1);
+        display.transform.position = new Vector3(newLoc, display.transform.position.y, display.transform.position.z);
+    }
+
+
+    void updateStatsPart(ref GameObject[] partsArray)
+    {
+        for (int i = 0; i < partsArray.Length; i++)
+        {
+            if (partsArray[i].activeSelf)
+            {
+                for (int j = 0; j < current_stats.Length; j++)
+                {
+                    if (i == 0)
+                    {
+                        current_stats[j] = current_stats[j] - partstats[partsArray[partsArray.Length - 1].tag][j];
+                    }
+                    else
+                    {
+                        current_stats[j] = current_stats[j] - partstats[partsArray[i - 1].tag][j];
+                    }
+                    current_stats[j] = current_stats[j] + partstats[partsArray[i].tag][j];
+                }
+            }
+        }
     }
 
     void selectPart(ref GameObject[] parts, ref int index){
