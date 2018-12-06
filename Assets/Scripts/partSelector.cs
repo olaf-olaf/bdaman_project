@@ -12,6 +12,9 @@ public class partSelector : MonoBehaviour
     public GameObject currentSpeedDisplay;
     public GameObject currentAccuracyDisplay;
     public GameObject currentFireRateDisplay;
+    public GameObject currentPowerDisplay;
+    public GameObject currentReloadTimeDisplay;
+    public GameObject currentMagSizeDisplay;
 
     private Vector3 maxDisplayLoc;
     private float maxDisplaywidth;
@@ -51,11 +54,13 @@ public class partSelector : MonoBehaviour
         partstats.Add("feetspeed", new float[] { 20, 0, 0, 0, 0, 0 });
         partstats.Add("feetbalance", new float[] { 0, 0, 0.2f, 0, 0, 0 });
         partstats.Add("feetaccuracy", new float[] { 0, 15, 0, 0, 0, 0 });
-        partstats.Add("cannonbalanced", new float[] { 0, 0, 0.2f, 0, 0, 0 });
+        partstats.Add("cannonbalanced", new float[] { 0, 0, 0.2f, 0,0.5f, 0 });
         partstats.Add("cannonheavy", new float[] { 0, 0, 0, 2, 0, 0 });
-        partstats.Add("armsbalanced", new float[] { 0, 0, 0.1f, 0, 0, 0 });
+        partstats.Add("armsbalanced", new float[] { 0, 0, 0.1f, 0, 0.5f, 0 });
         partstats.Add("armscapacity", new float[] { 0, 0, 0, 0, 0, 5 });
-        partstats.Add("armsspeed", new float[] { 10, 0, 0, 2, 0, 0 });
+        partstats.Add("armsspeed", new float[] { 10, 0, 0, 0, 0, 0 });
+
+        displayCurrentStats();
     }
 
     // Update is called once per frame
@@ -93,7 +98,6 @@ public class partSelector : MonoBehaviour
             displayCurrentStats();
         }
 
-        // Display stats
     }
 
 
@@ -103,6 +107,10 @@ public class partSelector : MonoBehaviour
         displayStat(ref currentSpeedDisplay, 150, 0);
         displayStat(ref currentAccuracyDisplay, 50, 1);
         displayStat(ref currentFireRateDisplay, 0.8f, 2);
+        displayStat(ref currentPowerDisplay, 25, 3);
+        displayStat(ref currentReloadTimeDisplay, 4, 4);
+        displayStat(ref currentMagSizeDisplay, 12, 5);
+
     }
 
     void displayStat(ref GameObject display, float maxValue, int statIndex)
