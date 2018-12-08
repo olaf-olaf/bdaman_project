@@ -4,10 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
-    public GameObject[] sqauds;
-    public GameObject[] feetParts;
-    public GameObject[] cannonParts;
-    public GameObject[] armParts;
+
     public GameObject bullet;
     public int magazineSize;
     private int remainingBullets;
@@ -23,21 +20,9 @@ public class PlayerController : MonoBehaviour
     public string fireButton;
     private GameObject chilBulletTwo;
     public Text magazineText;
-    public List<int> bodyIndex;
 
     private void Start()
-    {
-
-     
-
-        //sqauds[bodyIndex[0]].GetComponent<Renderer>().material.color = Color.green;
-        feetParts[bodyIndex[1]].SetActive(true);
-        cannonParts[bodyIndex[2]].SetActive(true);
-        armParts[bodyIndex[3]].SetActive(true);
-
-
-
-
+    { 
         remainingBullets = magazineSize;
         updateMagazineUI();
     }

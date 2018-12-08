@@ -99,9 +99,7 @@ public class GameController : MonoBehaviour
     } 
 
     void setPlayerAttributes()
-    {
-        List<int> settings_p1 = new List < int >  () {0,0,0,0 };
-        player1.GetComponent<PlayerController>().bodyIndex = settings_p1;
+    { 
         player1.GetComponent<MovePlayer>().speed = p1_movement_speed;
         player1.GetComponent<PlayerController>().power = p1_power;
         player1.GetComponent<PlayerController>().magazineSize = p1_mag_size;
@@ -109,9 +107,6 @@ public class GameController : MonoBehaviour
         player1.GetComponent<PlayerController>().accuracy = p1_accuracy;
         player1.GetComponent<PlayerController>().fireRate = p1_fire_rate;
 
-
-        List<int> settings_p2 = new List<int>() {0, 0, 0, 0 };
-        player2.GetComponent<PlayerController>().bodyIndex = settings_p2;
         player2.GetComponent<MovePlayer>().speed = p2_movement_speed;
         player2.GetComponent<PlayerController>().power = p2_power;
         player2.GetComponent<PlayerController>().magazineSize = p2_mag_size;
@@ -151,7 +146,7 @@ public class GameController : MonoBehaviour
         {
             he.SetActive(false);
         }
-        //GameObject.FindGameObjectWithTag("Puck").GetComponent<PuckController>().Reset();
+        GameObject.FindGameObjectWithTag("Puck").GetComponent<PuckController>().Reset();
 
     }
 
@@ -212,8 +207,6 @@ public class GameController : MonoBehaviour
 
     void updatePuck()
     {
-
-
         foreach (GameObject goal in GameObject.FindGameObjectsWithTag("Goal"))
         {
             

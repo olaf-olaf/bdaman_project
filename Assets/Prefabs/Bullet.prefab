@@ -113,10 +113,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletInstance: {fileID: 1331187728765658}
-  m_MaxDamage: 0
-  m_ExplosionForce: 1000
-  m_MaxLifeTime: 2
-  shooter: 
 --- !u!135 &135544080084580416
 SphereCollider:
   m_ObjectHideFlags: 1
