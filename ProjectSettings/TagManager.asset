@@ -6,9 +6,14 @@ TagManager:
   tags:
   - Player1
   - Player2
-  - Puck
-  - Goal
-  - Health
+  - feetspeed
+  - feetbalance
+  - feetaccuracy
+  - cannonbalanced
+  - cannonheavy
+  - armsbalanced
+  - armscapacity
+  - armsspeed
   layers:
   - Default
   - TransparentFX

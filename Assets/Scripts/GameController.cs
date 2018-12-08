@@ -1,23 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
-using UnityEngine.UI;
-
 
 public class GameController : MonoBehaviour
 {
     private static GameController instance;
     public static GameController Instance { get { return instance; } }
 
-    public string gameMode;
+    // all the settings from the main menu
+    public enum GameMode { DHB, Puck, ShootGap, Count }
+    private GameMode gameMode;
+    private delegate void UpdateDelegate();
+    private UpdateDelegate[] UpdateDelegates;
+
+
     public int gameLevel;
 
-    // max suration of a session
-    public int sessionDuration = 5;
-
-    // max amount of goals
-    public int maxGoals = 2;
 
     // these values need to be set in the game menu
     /*         NAME           Default               Range
@@ -28,13 +26,16 @@ public class GameController : MonoBehaviour
      * reload time               3                   2, 4
      * mag size                  5                   3, 12 
     */
+
+
+
+
     public float p1_movement_speed;
     public float p1_accuracy;
     public float p1_fire_rate;
     public float p1_power;
     public float p1_reload_time;
-    public int p1_mag_size; 
-
+    public int p1_mag_size;
 
     public float p2_movement_speed;
     public float p2_accuracy;
@@ -42,20 +43,11 @@ public class GameController : MonoBehaviour
     public float p2_power;
     public float p2_reload_time;
     public int p2_mag_size;
-     
 
     GameObject player1; 
     GameObject player2;
-
-    GameObject Puck;
     private float p1_health = 100f;
     private float p2_health = 100f;
-    private float sessionRemainingSeconds;
-    private int sessionRemainingMinutes;
-    public Text timeText;
-    public bool generateGameObjects = false;
-    
-     
 
     // awake functions
     void Awake()
@@ -68,35 +60,30 @@ public class GameController : MonoBehaviour
         else
         {
             instance = this;
-        }
-        
-        // init players
+        } 
+
+
         player1 = GameObject.FindGameObjectWithTag("Player1");
         player2 = GameObject.FindGameObjectWithTag("Player2");
-        gameMode = "PUCK";
-        
+
+
+        //setup all UpdateDelegates here to avoid runtime memory allocation
+        UpdateDelegates = new UpdateDelegate[(int)GameMode.Count];
+
+        //and then each UpdateDelegate
+        UpdateDelegates[(int)GameMode.DHB] = UpdateDHBState;
+        UpdateDelegates[(int)GameMode.Puck] = UpdatePuckState;
+        UpdateDelegates[(int)GameMode.ShootGap] = UpdateShootGapState;
+
+
         // set general player attributes
         setPlayerAttributes();
-         
-        // initialise session time
-        sessionRemainingMinutes = sessionDuration;
 
-        //set gamemode specific
-        //call the update method of current state
-        switch (gameMode)
-        {
-            case "DHB":
-                awakeDHB();
-                break;
-            case "PUCK":
-                awakePuck();
-                break; 
-            default:
-                Debug.Log("INCORRECT GAME MODE");
-                GameFinished();
-                break;
-        }
-    } 
+
+        // should be altered according to the defined gameMode
+        gameMode = GameMode.DHB;
+        awakeDHB();
+    }
 
     void setPlayerAttributes()
     { 
@@ -116,115 +103,44 @@ public class GameController : MonoBehaviour
     }
 
 
-    // initialise DHB game
     void awakeDHB()
-    { 
-
-        GameObject.FindGameObjectWithTag("Puck").SetActive(false); 
-        foreach (GameObject go in GameObject.FindGameObjectsWithTag("Goal"))
-        {
-            go.SetActive(false);
-        }
-        foreach (GameObject he in GameObject.FindGameObjectsWithTag("Health"))
-        {
-            he.SetActive(true);
-        }
-    }
-
-
-    // initialise PUCK game
-    void awakePuck()
     {
 
-        GameObject.FindGameObjectWithTag("Puck").SetActive(true);
-     
-        foreach (GameObject go in GameObject.FindGameObjectsWithTag("Goal"))
-        {
-            go.SetActive(true);
-        }
-        foreach (GameObject he in GameObject.FindGameObjectsWithTag("Health"))
-        {
-            he.SetActive(false);
-        }
-        GameObject.FindGameObjectWithTag("Puck").GetComponent<PuckController>().Reset();
+        // set the health bars for the players 
 
     }
 
 
- 
+
+
     // update functions
     void Update()
     {
-        // measure the Remaining time of the session
-        UpdateTime();
-
-        // 
-        if (sessionRemainingMinutes < 0)
-        {
-            GameFinished();
-        }
-
-        switch (gameMode)
-        {
-            case "DHB":
-                updateDHB();
-                break;
-            case "PUCK":
-                updatePuck();
-                break;
-        
-            default: 
-                GameFinished();
-                break;
-        }
+       
+        //call the update method of current state
+        if (UpdateDelegates[(int)gameMode] != null)
+            UpdateDelegates[(int)gameMode]();
     }
 
-    // update the timer
-    void UpdateTime()
+    void UpdateDHBState()
     {
-        sessionRemainingSeconds -= Time.deltaTime;
-        if (sessionRemainingSeconds <= 0)
-        {
-            sessionRemainingMinutes -= 1;
-            sessionRemainingSeconds = 59;
-        }
+       
 
-        player1.GetComponentInChildren<Text>().text = "Time: " + sessionRemainingMinutes.ToString() + ":" + Math.Round(sessionRemainingSeconds).ToString();
-        player2.GetComponentInChildren<Text>().text = "Time: " + sessionRemainingMinutes.ToString() + ":" + Math.Round(sessionRemainingSeconds).ToString();
+
     }
 
-
-
-    void updateDHB()
-    {   
-        // check if one of the players has died
-        if(player1.GetComponent<PlayerHealth>().m_Dead | player1.GetComponent<PlayerHealth>().m_Dead)
-        { 
-            GameFinished();
-        }
-             
-    }
-
-    void updatePuck()
+    void UpdatePuckState()
     {
-        foreach (GameObject goal in GameObject.FindGameObjectsWithTag("Goal"))
-        {
-            
-            //check if one of the goals has surpassed the maximum 
-            if (goal.GetComponent<GoalController>().points >= maxGoals)
-            {
 
-                GameFinished();
-            }
-
-        }
     }
- 
 
-    void GameFinished()
+    void UpdateShootGapState()
     {
-        // return to the main menu
-        // .....
-        Debug.Log("Game Finished!");
-    } 
+
+    }
+
+
+
+
+
 }
