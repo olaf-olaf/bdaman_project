@@ -6,47 +6,43 @@ TagManager:
   tags:
   - Player1
   - Player2
-  - feetspeed
-  - feetbalance
-  - feetaccuracy
-  - cannonbalanced
-  - cannonheavy
-  - armsbalanced
-  - armscapacity
-  - armsspeed
+
+  - Puck
+  - Goal
+  - Health
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  -
   - Water
   - UI
-  - 
-  - 
+  -
+  -
   - PostProcessing
   - GUI_p1
   - GUI_p2
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
   m_SortingLayers:
   - name: Default
     uniqueID: 0
