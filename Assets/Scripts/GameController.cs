@@ -99,7 +99,9 @@ public class GameController : MonoBehaviour
     } 
 
     void setPlayerAttributes()
-    { 
+    {
+        List<int> settings_p1 = new List<int>() { 0, 0, 0 };
+        player1.GetComponent<PlayerController>().bodyIndex = settings_p1;
         player1.GetComponent<MovePlayer>().speed = p1_movement_speed;
         player1.GetComponent<PlayerController>().power = p1_power;
         player1.GetComponent<PlayerController>().magazineSize = p1_mag_size;
@@ -107,12 +109,16 @@ public class GameController : MonoBehaviour
         player1.GetComponent<PlayerController>().accuracy = p1_accuracy;
         player1.GetComponent<PlayerController>().fireRate = p1_fire_rate;
 
+ 
+        List<int> settings_p2 = new List<int>() { 1, 1, 1 };
+        player2.GetComponent<PlayerController>().bodyIndex = settings_p2;
         player2.GetComponent<MovePlayer>().speed = p2_movement_speed;
         player2.GetComponent<PlayerController>().power = p2_power;
         player2.GetComponent<PlayerController>().magazineSize = p2_mag_size;
         player2.GetComponent<PlayerController>().reloadTime = p2_reload_time;
         player2.GetComponent<PlayerController>().accuracy = p2_accuracy;
-        player2.GetComponent<PlayerController>().fireRate = p2_fire_rate; 
+        player2.GetComponent<PlayerController>().fireRate = p2_fire_rate;
+       
     }
 
 
@@ -145,8 +151,7 @@ public class GameController : MonoBehaviour
         foreach (GameObject he in GameObject.FindGameObjectsWithTag("Health"))
         {
             he.SetActive(false);
-        }
-        GameObject.FindGameObjectWithTag("Puck").GetComponent<PuckController>().Reset();
+        } 
 
     }
 
@@ -198,7 +203,7 @@ public class GameController : MonoBehaviour
     void updateDHB()
     {   
         // check if one of the players has died
-        if(player1.GetComponent<PlayerHealth>().m_Dead | player1.GetComponent<PlayerHealth>().m_Dead)
+        if(player1.GetComponent<PlayerHealth>().m_Dead | player2.GetComponent<PlayerHealth>().m_Dead)
         { 
             GameFinished();
         }
@@ -209,13 +214,14 @@ public class GameController : MonoBehaviour
     {
         foreach (GameObject goal in GameObject.FindGameObjectsWithTag("Goal"))
         {
-            
+
             //check if one of the goals has surpassed the maximum 
+    
             if (goal.GetComponent<GoalController>().points >= maxGoals)
             {
 
                 GameFinished();
-            }
+            } 
 
         }
     }
