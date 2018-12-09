@@ -23,7 +23,8 @@ public class MovePlayer : MonoBehaviour {
         float moveAxis = Input.GetAxis(verAxis); 
      
 
-        Vector3 movement = new Vector3(moveHorizontal, 0, 0); 
+        Vector3 movement = new Vector3(moveHorizontal, 0, 0);
+        Debug.Log(movement);
         rb.AddForce(movement * speed);
         player.transform.Rotate(0, moveAxis, 0); 
 

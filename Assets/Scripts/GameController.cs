@@ -73,7 +73,7 @@ public class GameController : MonoBehaviour
         // init players
         player1 = GameObject.FindGameObjectWithTag("Player1");
         player2 = GameObject.FindGameObjectWithTag("Player2");
-        gameMode = "PUCK";
+        gameMode = "DHB";
         
         // set general player attributes
         setPlayerAttributes();

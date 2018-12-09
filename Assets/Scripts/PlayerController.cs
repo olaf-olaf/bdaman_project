@@ -86,16 +86,16 @@ public class PlayerController : MonoBehaviour
     GameObject Fire()
     {
 
-
-        Vector3 playerPos = player.transform.position;
-        Vector3 playerDirection = player.transform.forward;
-
-
         // add random rotation to the bullets
         float rotation_Y_Offset = 1.0f * accuracy;
         Quaternion targetRotation = Quaternion.Euler(1, Random.Range(-rotation_Y_Offset, rotation_Y_Offset), 1);
 
-   Quaternion playerRotation = player.transform.rotation * targetRotation;
+        Quaternion playerRotation = player.transform.Find("barrelDirection").gameObject.transform.rotation * targetRotation;
+        Vector3 playerPos = player.transform.Find("barrelDirection").gameObject.transform.position;
+        Vector3 playerDirection = player.transform.Find("barrelDirection").gameObject.transform.forward;
+
+
+        
       
         //Quaternion playerRotation = Quaternion.Euler(player.transform.rotation.x, player.transform.rotation.y-60, player.transform.rotation.z) * targetRotation;
          

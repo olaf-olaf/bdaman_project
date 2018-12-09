@@ -594,7 +594,7 @@ GameObject:
   - component: {fileID: 214537715}
   m_Layer: 0
   m_Name: barrelDirection
-  m_TagString: Untagged
+  m_TagString: fireDirection
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -605,13 +605,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 214537714}
-  m_LocalRotation: {x: 0, y: 0.5, z: 0, w: 0.8660254}
+  m_LocalRotation: {x: 0, y: 0.9659258, z: 0, w: 0.2588191}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1099002436}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 60, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 150, z: 0}
 --- !u!1 &220670761 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: ee066e005a53b42cba0e3549d3bf6c13,
@@ -3301,9 +3301,9 @@ MonoBehaviour:
   power: 0
   accuracy: 0
   fireRate: 0
-  initRotation: 1
+  initRotation: -95
   player: {fileID: 1099002435}
-  spawnDistance: 0
+  spawnDistance: 0.5
   bulletSpawn: {fileID: 0}
   fireButton: l
   magazineText: {fileID: 1164929305}
@@ -3320,7 +3320,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1099002435}
-  speed: 120
+  speed: 90
   horAxis: Horizontal_p1
   verAxis: Vertical_p1
 --- !u!114 &1099002439
@@ -3350,7 +3350,7 @@ Rigidbody:
   m_Mass: 5
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 124
@@ -4045,7 +4045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1308603013}
-  speed: 120
+  speed: 90
   horAxis: Horizontal_p2
   verAxis: Vertical_p2
 --- !u!114 &1308603016
@@ -4075,10 +4075,10 @@ Rigidbody:
   m_Mass: 5
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 124
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!4 &1308603018
 Transform:
@@ -4087,7 +4087,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1308603013}
   m_LocalRotation: {x: 0, y: 0.2588191, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 0.1, z: 8}
+  m_LocalPosition: {x: 0, y: 0, z: 8}
   m_LocalScale: {x: 1.0000004, y: 1, z: 1.0000004}
   m_Children:
   - {fileID: 536080104}
@@ -4436,7 +4436,7 @@ GameObject:
   - component: {fileID: 1432590638}
   m_Layer: 0
   m_Name: barrelDirection
-  m_TagString: Untagged
+  m_TagString: fireDirection
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4447,13 +4447,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1432590637}
-  m_LocalRotation: {x: 0, y: 0.5, z: 0, w: 0.8660254}
+  m_LocalRotation: {x: 0, y: 0.9659258, z: 0, w: 0.2588191}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1308603018}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 60, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 150, z: 0}
 --- !u!1 &1454394990 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 8f01e99ff2ebc4d8ebb00fde053b601e,
