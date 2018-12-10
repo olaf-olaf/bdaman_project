@@ -27,20 +27,14 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-
-        Debug.Log(bodyIndex[0]);
-         
+          
         feetParts[bodyIndex[0]].SetActive(true);
         cannonParts[bodyIndex[1]].SetActive(true);
         armParts[bodyIndex[2]].SetActive(true);
-
-
-
-
+         
         remainingBullets = magazineSize;
         updateMagazineUI();
     }
-
 
     // Update is called once per frame
     void Update()
@@ -50,8 +44,7 @@ public class PlayerController : MonoBehaviour
         {
             // Shoot  
             if (Input.GetKeyDown(fireButton))
-            {
-                Debug.Log(remainingBullets);
+            { 
                 chilBulletTwo = Fire();
 
             }
@@ -93,11 +86,6 @@ public class PlayerController : MonoBehaviour
         Quaternion playerRotation = player.transform.Find("barrelDirection").gameObject.transform.rotation * targetRotation;
         Vector3 playerPos = player.transform.Find("barrelDirection").gameObject.transform.position;
         Vector3 playerDirection = player.transform.Find("barrelDirection").gameObject.transform.forward;
-
-
-        
-      
-        //Quaternion playerRotation = Quaternion.Euler(player.transform.rotation.x, player.transform.rotation.y-60, player.transform.rotation.z) * targetRotation;
          
         Vector3 spawnPos = playerPos + playerDirection * spawnDistance;
       

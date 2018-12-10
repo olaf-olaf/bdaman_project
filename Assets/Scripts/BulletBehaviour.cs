@@ -26,6 +26,11 @@ public class BulletBehaviour : MonoBehaviour {
         {
             var hit = collision.gameObject; 
             PlayerHealth health = hit.GetComponent<PlayerHealth>();
+            var vel = this.GetComponent<Rigidbody>().velocity;      //to get a Vector3 representation of the velocity
+            float speed = vel.magnitude;
+
+            Debug.Log(speed);
+
             float damage = 10f; 
             health.TakeDamage(damage);
             Destroy(bulletInstance);

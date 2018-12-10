@@ -12,8 +12,7 @@ public class PlayerHealth : MonoBehaviour
 
     private float m_CurrentHealth;                      // How much health the player currently has.
     public bool m_Dead;                                // Has the player been reduced beyond zero health yet?
-     
-
+    
 
     private void OnEnable()
     {

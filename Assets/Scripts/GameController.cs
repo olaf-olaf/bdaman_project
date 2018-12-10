@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class GameController : MonoBehaviour
@@ -54,8 +55,12 @@ public class GameController : MonoBehaviour
     private int sessionRemainingMinutes;
     public Text timeText;
     public bool generateGameObjects = false;
-    
-     
+    private Text p1_message;
+
+    private Text p2_message;
+
+
+
 
     // awake functions
     void Awake()
@@ -74,7 +79,15 @@ public class GameController : MonoBehaviour
         player1 = GameObject.FindGameObjectWithTag("Player1");
         player2 = GameObject.FindGameObjectWithTag("Player2");
         gameMode = "DHB";
-        
+        /*
+        p1_message = player1.GetComponent<Text>();
+        p2_message = player2.GetComponent<Text>();
+
+        p1_message.text = "";
+
+        p2_message.text = "";
+        */
+
         // set general player attributes
         setPlayerAttributes();
          
@@ -160,15 +173,23 @@ public class GameController : MonoBehaviour
     // update functions
     void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            QuitGame();
+        }
+
+
         // measure the Remaining time of the session
         UpdateTime();
 
-        // 
+        // Finish game after certain time
         if (sessionRemainingMinutes < 0)
         {
             GameFinished();
         }
 
+        // Finish game based on mode-dependent condition
         switch (gameMode)
         {
             case "DHB":
@@ -201,13 +222,15 @@ public class GameController : MonoBehaviour
 
 
     void updateDHB()
-    {   
+    {
         // check if one of the players has died
-        if(player1.GetComponent<PlayerHealth>().m_Dead | player2.GetComponent<PlayerHealth>().m_Dead)
-        { 
-            GameFinished();
+        if (player1.GetComponent<PlayerHealth>().m_Dead) {
+            GameWon(player2);
         }
-             
+        else if (player2.GetComponent<PlayerHealth>().m_Dead)
+        {
+            GameWon(player1);
+        }     
     }
 
     void updatePuck()
@@ -219,18 +242,34 @@ public class GameController : MonoBehaviour
     
             if (goal.GetComponent<GoalController>().points >= maxGoals)
             {
-
-                GameFinished();
+                GameWon(goal.GetComponent<GoalController>().scoringPlayer);    
             } 
 
         }
     }
- 
+    void GameWon(GameObject winningPlayer)
+    {
+        /*
+        p1_message.text = winningPlayer.tag + " won";
+        p2_message.text = winningPlayer.tag + " won";
+         
+        */
+         GameFinished();
+    }
+
+
+    void QuitGame()
+    {
+        GameFinished();
+    }
+
 
     void GameFinished()
     {
-        // return to the main menu
-        // .....
+        // return to the main menu 
         Debug.Log("Game Finished!");
+        SceneManager.LoadScene(sceneBuildIndex: 1);
     } 
+
+    
 }
