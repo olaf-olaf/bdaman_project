@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class partSelector : MonoBehaviour
 {
@@ -16,17 +17,20 @@ public class partSelector : MonoBehaviour
     public GameObject currentReloadTimeDisplay;
     public GameObject currentMagSizeDisplay;
 
+    public string horAxis;
+    public string verAxis;
+
     private Vector3 maxDisplayLoc;
     private float maxDisplaywidth;
     private Dictionary<string, float[]> partstats = new Dictionary<string, float[]>();
-    private float[] current_stats = { 120, 25, 0.3f, 20, 3, 5 };
+    public float[] current_stats = { 120, 25, 0.3f, 20, 3, 5 };
 
 
 
-    private int armIndex;
+    public int armIndex;
     private int bodyPart;
-    private int feetIndex;
-    private int cannonIndex;
+    public int feetIndex;
+    public int cannonIndex;
 
     // Use this for initialization
     // these values need to be set in the game menu
@@ -63,27 +67,35 @@ public class partSelector : MonoBehaviour
         displayCurrentStats();
     }
 
+
+    bool horPressed = true;
+
+    bool verPressed = true;
     // Update is called once per frame
     void Update()
     {
 
+        float upDown = Input.GetAxisRaw(verAxis);
+        float leftRight = Input.GetAxisRaw(horAxis); 
+
         // Scroll through different sections of the body
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        
+    
+        if (upDown == -1 && horPressed)
         {
             selectBodySection();
         }
 
         // Select feet
-        if (bodyPart == 2 && Input.GetKeyDown("right"))
+        if (bodyPart == 2 && leftRight == 1 && verPressed)
         {
             selectPart(ref feetParts, ref feetIndex);
             updateStatsPart(ref feetParts);
-            displayCurrentStats();
-
+            displayCurrentStats(); 
         }
 
         // Select cannon
-        if (bodyPart == 1 && Input.GetKeyDown("right"))
+        if (bodyPart == 1 &&  leftRight == 1 && verPressed)
         {
             selectPart(ref cannonParts, ref cannonIndex);
             updateStatsPart(ref cannonParts);
@@ -91,26 +103,43 @@ public class partSelector : MonoBehaviour
         }
 
         // Select arms
-        if (bodyPart == 0 && Input.GetKeyDown("right"))
+        if (bodyPart == 0 && leftRight == 1 && verPressed)
         {
             selectPart(ref armParts, ref armIndex);
             updateStatsPart(ref armParts);
             displayCurrentStats();
         }
 
+        // make sure the vertical button is only pressed once
+        if (upDown == 0)
+        {
+            horPressed = true;
+        }
+        else
+        {
+            horPressed = false;
+        }
+
+        // make sure the horizontal button is only pressed once
+        if (leftRight == 0)
+        {
+            verPressed = true;
+        }
+        else
+        {
+            verPressed = false;
+        }
     }
 
 
     void displayCurrentStats()
-    {
-
+    { 
         displayStat(ref currentSpeedDisplay, 150, 0);
         displayStat(ref currentAccuracyDisplay, 50, 1);
         displayStat(ref currentFireRateDisplay, 0.8f, 2);
         displayStat(ref currentPowerDisplay, 25, 3);
         displayStat(ref currentReloadTimeDisplay, 4, 4);
         displayStat(ref currentMagSizeDisplay, 12, 5);
-
     }
 
     void displayStat(ref GameObject display, float maxValue, int statIndex)
@@ -165,7 +194,6 @@ public class partSelector : MonoBehaviour
     void selectBodySection(){
         bodyPart = (bodyPart + 1) % sqauds.Length;
         setPartSelectColor();
-
     }
 
     void setPartSelectColor(){
@@ -174,8 +202,7 @@ public class partSelector : MonoBehaviour
                 sqauds[i].GetComponent<Renderer>().material.color = Color.green;
             } else {
                 sqauds[i].GetComponent<Renderer>().material.color = Color.white;
-
             }
         }
-    }
+    } 
 }

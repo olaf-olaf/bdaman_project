@@ -18,6 +18,9 @@ TagManager:
   - armsbalanced
   - fireDirction
   - fireDirection
+  - GameSettings
+  - P1Message
+  - P2Message
   layers:
   - Default
   - TransparentFX

@@ -2276,7 +2276,7 @@ GameObject:
   - component: {fileID: 958963222}
   m_Layer: 9
   m_Name: messageText
-  m_TagString: Untagged
+  m_TagString: P1Message
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3197,7 +3197,7 @@ GameObject:
   - component: {fileID: 1338508768}
   m_Layer: 10
   m_Name: messageText
-  m_TagString: Untagged
+  m_TagString: P2Message
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

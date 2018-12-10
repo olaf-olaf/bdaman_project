@@ -43,8 +43,8 @@ public class GameController : MonoBehaviour
     public float p2_power;
     public float p2_reload_time;
     public int p2_mag_size;
-     
 
+    GameSettings settings;
     GameObject player1; 
     GameObject player2;
 
@@ -60,11 +60,15 @@ public class GameController : MonoBehaviour
     private Text p2_message;
 
 
-
+    GameObject GameSettings; 
 
     // awake functions
     void Awake()
     {
+
+
+
+
         // Singleton structure
         if (instance != null && instance != this)
         {
@@ -74,19 +78,20 @@ public class GameController : MonoBehaviour
         {
             instance = this;
         }
-        
+
+        // init settings
+        GameSettings = GameObject.FindGameObjectWithTag("GameSettings");
+        settings = GameSettings.GetComponent<GameSettings>();
+      
         // init players
         player1 = GameObject.FindGameObjectWithTag("Player1");
         player2 = GameObject.FindGameObjectWithTag("Player2");
         gameMode = "DHB";
-        /*
-        p1_message = player1.GetComponent<Text>();
-        p2_message = player2.GetComponent<Text>();
 
+        p1_message = GameObject.FindGameObjectWithTag("P1Message").GetComponent<Text>();
         p1_message.text = "";
-
+        p2_message = GameObject.FindGameObjectWithTag("P2Message").GetComponent<Text>();
         p2_message.text = "";
-        */
 
         // set general player attributes
         setPlayerAttributes();
@@ -114,23 +119,23 @@ public class GameController : MonoBehaviour
     void setPlayerAttributes()
     {
         List<int> settings_p1 = new List<int>() { 0, 0, 0 };
-        player1.GetComponent<PlayerController>().bodyIndex = settings_p1;
-        player1.GetComponent<MovePlayer>().speed = p1_movement_speed;
-        player1.GetComponent<PlayerController>().power = p1_power;
-        player1.GetComponent<PlayerController>().magazineSize = p1_mag_size;
-        player1.GetComponent<PlayerController>().reloadTime = p1_reload_time;
-        player1.GetComponent<PlayerController>().accuracy = p1_accuracy;
-        player1.GetComponent<PlayerController>().fireRate = p1_fire_rate;
+        player1.GetComponent<PlayerController>().bodyIndex = settings.body_settings_p1;
+        player1.GetComponent<MovePlayer>().speed = settings.p1_movement_speed;
+        player1.GetComponent<PlayerController>().power = settings.p1_power;
+        player1.GetComponent<PlayerController>().magazineSize = settings.p1_mag_size;
+        player1.GetComponent<PlayerController>().reloadTime = settings.p1_reload_time;
+        player1.GetComponent<PlayerController>().accuracy = settings.p1_accuracy;
+        player1.GetComponent<PlayerController>().fireRate = settings.p1_fire_rate;
 
  
         List<int> settings_p2 = new List<int>() { 1, 1, 1 };
-        player2.GetComponent<PlayerController>().bodyIndex = settings_p2;
-        player2.GetComponent<MovePlayer>().speed = p2_movement_speed;
-        player2.GetComponent<PlayerController>().power = p2_power;
-        player2.GetComponent<PlayerController>().magazineSize = p2_mag_size;
-        player2.GetComponent<PlayerController>().reloadTime = p2_reload_time;
-        player2.GetComponent<PlayerController>().accuracy = p2_accuracy;
-        player2.GetComponent<PlayerController>().fireRate = p2_fire_rate;
+        player2.GetComponent<PlayerController>().bodyIndex =settings.body_settings_p2;
+        player2.GetComponent<MovePlayer>().speed = settings.p2_movement_speed;
+        player2.GetComponent<PlayerController>().power = settings.p2_power;
+        player2.GetComponent<PlayerController>().magazineSize = settings.p2_mag_size;
+        player2.GetComponent<PlayerController>().reloadTime = settings.p2_reload_time;
+        player2.GetComponent<PlayerController>().accuracy = settings.p2_accuracy;
+        player2.GetComponent<PlayerController>().fireRate = settings.p2_fire_rate;
        
     }
 
@@ -248,12 +253,10 @@ public class GameController : MonoBehaviour
         }
     }
     void GameWon(GameObject winningPlayer)
-    {
-        /*
+    { 
         p1_message.text = winningPlayer.tag + " won";
         p2_message.text = winningPlayer.tag + " won";
-         
-        */
+          
          GameFinished();
     }
 

@@ -27,10 +27,10 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-          
-        feetParts[bodyIndex[0]].SetActive(true);
-        cannonParts[bodyIndex[1]].SetActive(true);
-        armParts[bodyIndex[2]].SetActive(true);
+
+        armParts[bodyIndex[0]].SetActive(true);
+        feetParts[bodyIndex[1]].SetActive(true);
+        cannonParts[bodyIndex[2]].SetActive(true); 
          
         remainingBullets = magazineSize;
         updateMagazineUI();
