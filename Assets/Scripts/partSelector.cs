@@ -16,6 +16,7 @@ public class partSelector : MonoBehaviour
     public GameObject currentPowerDisplay;
     public GameObject currentReloadTimeDisplay;
     public GameObject currentMagSizeDisplay;
+    private bool gameModeselection;
 
     public string horAxis;
     public string verAxis;
@@ -74,60 +75,64 @@ public class partSelector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        gameModeselection = moveCamera.gameModeSelection;
+        if (gameModeselection == false)
+        {
 
-        float upDown = Input.GetAxisRaw(verAxis);
-        float leftRight = Input.GetAxisRaw(horAxis); 
+            float upDown = Input.GetAxisRaw(verAxis);
+            float leftRight = Input.GetAxisRaw(horAxis);
 
-        // Scroll through different sections of the body
-        
-    
-        if (upDown == -1 && horPressed)
-        {
-            selectBodySection();
-        }
+            // Scroll through different sections of the body
 
-        // Select feet
-        if (bodyPart == 2 && leftRight == 1 && verPressed)
-        {
-            selectPart(ref feetParts, ref feetIndex);
-            updateStatsPart(ref feetParts);
-            displayCurrentStats(); 
-        }
 
-        // Select cannon
-        if (bodyPart == 1 &&  leftRight == 1 && verPressed)
-        {
-            selectPart(ref cannonParts, ref cannonIndex);
-            updateStatsPart(ref cannonParts);
-            displayCurrentStats();
-        }
+            if (upDown == -1 && horPressed)
+            {
+                selectBodySection();
+            }
 
-        // Select arms
-        if (bodyPart == 0 && leftRight == 1 && verPressed)
-        {
-            selectPart(ref armParts, ref armIndex);
-            updateStatsPart(ref armParts);
-            displayCurrentStats();
-        }
+            // Select feet
+            if (bodyPart == 2 && leftRight == 1 && verPressed)
+            {
+                selectPart(ref feetParts, ref feetIndex);
+                updateStatsPart(ref feetParts);
+                displayCurrentStats();
+            }
 
-        // make sure the vertical button is only pressed once
-        if (upDown == 0)
-        {
-            horPressed = true;
-        }
-        else
-        {
-            horPressed = false;
-        }
+            // Select cannon
+            if (bodyPart == 1 && leftRight == 1 && verPressed)
+            {
+                selectPart(ref cannonParts, ref cannonIndex);
+                updateStatsPart(ref cannonParts);
+                displayCurrentStats();
+            }
 
-        // make sure the horizontal button is only pressed once
-        if (leftRight == 0)
-        {
-            verPressed = true;
-        }
-        else
-        {
-            verPressed = false;
+            // Select arms
+            if (bodyPart == 0 && leftRight == 1 && verPressed)
+            {
+                selectPart(ref armParts, ref armIndex);
+                updateStatsPart(ref armParts);
+                displayCurrentStats();
+            }
+
+            // make sure the vertical button is only pressed once
+            if (upDown == 0)
+            {
+                horPressed = true;
+            }
+            else
+            {
+                horPressed = false;
+            }
+
+            // make sure the horizontal button is only pressed once
+            if (leftRight == 0)
+            {
+                verPressed = true;
+            }
+            else
+            {
+                verPressed = false;
+            }
         }
     }
 
