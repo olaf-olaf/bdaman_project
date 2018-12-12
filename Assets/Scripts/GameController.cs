@@ -60,6 +60,9 @@ public class GameController : MonoBehaviour
     private Text p2_message;
 
 
+    public bool gamemodeSelection = false;
+
+
     GameObject GameSettings; 
 
     // awake functions
