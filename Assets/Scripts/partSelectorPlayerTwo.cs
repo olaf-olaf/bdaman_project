@@ -15,6 +15,7 @@ public class partSelectorPlayerTwo : MonoBehaviour
     public GameObject currentPowerDisplay;
     public GameObject currentReloadTimeDisplay;
     public GameObject currentMagSizeDisplay;
+    private bool gameModeselection;
 
     private Vector3 maxDisplayLoc;
     private float maxDisplaywidth;
@@ -40,6 +41,7 @@ public class partSelectorPlayerTwo : MonoBehaviour
     */
     void Start()
     {
+        gameModeselection = moveCamera.gameModeSelection;
         maxDisplaywidth = currentSpeedDisplay.GetComponent<Renderer>().bounds.size.x;
         maxDisplayLoc = currentSpeedDisplay.transform.position;
         armIndex = 0;
@@ -66,36 +68,39 @@ public class partSelectorPlayerTwo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        // Scroll through different sections of the body
-        if (Input.GetKeyDown("s"))
+        gameModeselection = moveCamera.gameModeSelection;
+        if (gameModeselection == false)
         {
-            selectBodySection();
-        }
+            // Scroll through different sections of the body
+            if (Input.GetKeyDown("s"))
+            {
+                selectBodySection();
+            }
 
-        // Select feet
-        if (bodyPart == 2 && Input.GetKeyDown("d"))
-        {
-            selectPart(ref feetParts, ref feetIndex);
-            updateStatsPart(ref feetParts);
-            displayCurrentStats();
+            // Select feet
+            if (bodyPart == 2 && Input.GetKeyDown("d"))
+            {
+                selectPart(ref feetParts, ref feetIndex);
+                updateStatsPart(ref feetParts);
+                displayCurrentStats();
 
-        }
+            }
 
-        // Select cannon
-        if (bodyPart == 1 && Input.GetKeyDown("d"))
-        {
-            selectPart(ref cannonParts, ref cannonIndex);
-            updateStatsPart(ref cannonParts);
-            displayCurrentStats();
-        }
+            // Select cannon
+            if (bodyPart == 1 && Input.GetKeyDown("d"))
+            {
+                selectPart(ref cannonParts, ref cannonIndex);
+                updateStatsPart(ref cannonParts);
+                displayCurrentStats();
+            }
 
-        // Select arms
-        if (bodyPart == 0 && Input.GetKeyDown("d"))
-        {
-            selectPart(ref armParts, ref armIndex);
-            updateStatsPart(ref armParts);
-            displayCurrentStats();
+            // Select arms
+            if (bodyPart == 0 && Input.GetKeyDown("d"))
+            {
+                selectPart(ref armParts, ref armIndex);
+                updateStatsPart(ref armParts);
+                displayCurrentStats();
+            }
         }
 
     }

@@ -33,10 +33,10 @@ public class GameSettings : MonoBehaviour {
     void Update() {
 
 
-        if (Input.GetKeyDown(KeyCode.Space) && !isActive)
-        { 
-            initGame();
-        }
+        //if (Input.GetKeyDown(KeyCode.Space) && !isActive)
+        //{ 
+        //    initGame();
+        //}
     }
 
     void initGame()
