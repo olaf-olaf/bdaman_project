@@ -15,14 +15,16 @@ public class GameSettings : MonoBehaviour {
     public List<int> body_settings_p1 = new List<int>();
 
 
+    public string GameMode;
+
     public float p2_movement_speed;
     public float p2_accuracy;
     public float p2_fire_rate;
-    public float p2_power;
+    public float p2_power; 
     public float p2_reload_time;
     public int p2_mag_size;
     public List<int> body_settings_p2 = new List<int>();
-    public bool isActive = false;
+    
 
     // Use this for initialization
     void Awake() {
@@ -32,17 +34,17 @@ public class GameSettings : MonoBehaviour {
     // Update is called once per frame
     void Update() {
 
-
-        //if (Input.GetKeyDown(KeyCode.Space) && !isActive)
-        //{ 
-        //    initGame();
-        //}
+         
     }
 
-    void initGame()
+    public void initGame()
     {
-        isActive = true;
-          
+        //GameMode = selectedMode;
+        SelectGameMode modeSelection = GameObject.FindGameObjectWithTag("GameModeSelect").GetComponent<SelectGameMode>();
+        GameMode = modeSelection.modes[modeSelection.gameModeElement];
+        Debug.Log("initialising: " + GameMode);
+
+        // get he current player settings
         GameObject p1 =  GameObject.FindGameObjectWithTag("Player1");
         GameObject p2 = GameObject.FindGameObjectWithTag("Player2");
         // get the current state of the parameters

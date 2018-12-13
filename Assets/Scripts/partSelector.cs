@@ -74,7 +74,7 @@ public class partSelector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameModeselection = moveCamera.gameModeSelection;
+        gameModeselection = MenuController.gameModeSelection;
         if (gameModeselection == false)
         {
 

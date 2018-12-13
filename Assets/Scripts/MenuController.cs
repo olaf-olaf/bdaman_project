@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class moveCamera : MonoBehaviour
+public class MenuController : MonoBehaviour
 {
     public Transform myTransform;
     public Transform backPanel;
@@ -24,20 +25,28 @@ public class moveCamera : MonoBehaviour
         {
             backPanelRotation = new Quaternion(1, 1, 1, 1);
             gameModeSelection = true;
-            print("ENTER PRESSED");
+            GameObject.FindGameObjectWithTag("ControlText").GetComponent<Text>().text = "[backspace to return]";
+           print("ENTER PRESSED");
         }
 
-        if (Input.GetKeyDown("space") && gameModeSelection == true && backPanelRotation.w < 0.001f)
+        if (Input.GetKeyDown("backspace") && gameModeSelection == true && backPanelRotation.w < 0.001f)
         {
             frontPanelRotation = new Quaternion(0, 0, 0, 0);
             gameModeSelection = false;
+
+            GameObject.FindGameObjectWithTag("ControlText").GetComponent<Text>().text = "p1; arrow keys, p2; wsad";
+        }
+        if (Input.GetKeyDown("space") && gameModeSelection == true && backPanelRotation.w < 0.001f)
+        {
+
+            // initialise game
+            GameObject.FindGameObjectWithTag("GameSettings").GetComponent<GameSettings>().initGame();
         }
 
- 
 
 
 
-        if (gameModeSelection == true  && backPanelRotation.w > 0.001f )
+            if (gameModeSelection == true  && backPanelRotation.w > 0.001f )
         {
             backPanelRotation = Quaternion.Slerp(myTransform.rotation, Quaternion.LookRotation(backPanel.position - myTransform.position), rotationSpeed * Time.deltaTime);
             myTransform.rotation = backPanelRotation;

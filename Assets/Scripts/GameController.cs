@@ -61,15 +61,11 @@ public class GameController : MonoBehaviour
     List<Vector3> bulletBackups = new List<Vector3>();
     public bool gamemodeSelection = false;
 
-
-    GameObject GameSettings; d
-
+     
 
     // awake functions
     void Awake()
-    {
-
-
+    { 
 
 
         // Singleton structure
@@ -89,7 +85,7 @@ public class GameController : MonoBehaviour
         // init players
         player1 = GameObject.FindGameObjectWithTag("Player1");
         player2 = GameObject.FindGameObjectWithTag("Player2");
-        gameMode = "DHB";
+        gameMode = settings.GameMode;
 
         p1_message = GameObject.FindGameObjectWithTag("P1Message").GetComponent<Text>();
         p1_message.text = "";
@@ -104,7 +100,7 @@ public class GameController : MonoBehaviour
 
         //set gamemode specific
         //call the update method of current state
-        switch (gameMode)
+        switch (settings.GameMode)
         {
             case "DHB":
                 awakeDHB();
@@ -113,7 +109,7 @@ public class GameController : MonoBehaviour
                 awakePuck();
                 break;
             default:
-                Debug.Log("INCORRECT GAME MODE");
+                Debug.Log(settings.GameMode + "INCORRECT GAME MODE");
                 GameFinished();
                 break;
         }
@@ -201,7 +197,7 @@ public class GameController : MonoBehaviour
             }
 
             // Finish game based on mode-dependent condition
-            switch (gameMode)
+            switch (settings.GameMode)
             {
                 case "DHB":
                     updateDHB();
@@ -230,7 +226,7 @@ public class GameController : MonoBehaviour
          puckVelocity = Vector3.zero;
          puckAngularVelocity = Vector3.zero;
 
-        if (gameMode == "PUCK")
+        if (settings.GameMode == "PUCK")
         {
             puckVelocity = Puck.GetComponent<Rigidbody>().velocity;
             puckAngularVelocity  = Puck.GetComponent<Rigidbody>().angularVelocity;
@@ -272,7 +268,7 @@ public class GameController : MonoBehaviour
             player1.GetComponent<Rigidbody>().angularVelocity = player1Angular;
             player1.GetComponent<Rigidbody>().angularVelocity = player2Angular;
 
-            if (gameMode == "PUCK")
+            if (settings.GameMode == "PUCK")
             {
                 Puck.GetComponent<Rigidbody>().velocity = puckVelocity;
                 Puck.GetComponent<Rigidbody>().angularVelocity = puckAngularVelocity;
