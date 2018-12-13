@@ -29,9 +29,9 @@ public class BulletBehaviour : MonoBehaviour {
             var vel = this.GetComponent<Rigidbody>().velocity;      //to get a Vector3 representation of the velocity
             float speed = vel.magnitude;
 
-            Debug.Log(speed);
+            // USE SPEED IN DAMAGE
 
-            float damage = 10f; 
+            float damage = 10f * speed * 0.1f; 
             health.TakeDamage(damage);
             Destroy(bulletInstance);
         }
@@ -43,7 +43,18 @@ public class BulletBehaviour : MonoBehaviour {
     private void Start()
     {
         // If it isn't destroyed by then, destroy the shell after it's lifetime.
-        Destroy(gameObject, m_MaxLifeTime);
+        float destroyTime = m_MaxLifeTime;
+        GameObject GameController = GameObject.FindGameObjectWithTag("GameController");
+        GameController GameControl = GameController.GetComponent<GameController>();
+        if (GameControl.gamePaused)
+        {
+            destroyTime += Time.deltaTime;
+        }
+
+
+
+        Destroy(gameObject, destroyTime);
+
     }
 
 

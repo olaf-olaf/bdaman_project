@@ -29,20 +29,7 @@ public class GameController : MonoBehaviour
      * reload time               3                   2, 4
      * mag size                  5                   3, 12 
     */
-    public float p1_movement_speed;
-    public float p1_accuracy;
-    public float p1_fire_rate;
-    public float p1_power;
-    public float p1_reload_time;
-    public int p1_mag_size; 
-
-
-    public float p2_movement_speed;
-    public float p2_accuracy;
-    public float p2_fire_rate;
-    public float p2_power;
-    public float p2_reload_time;
-    public int p2_mag_size;
+ 
 
     GameSettings settings;
     GameObject player1; 
@@ -56,11 +43,23 @@ public class GameController : MonoBehaviour
     public Text timeText;
     public bool generateGameObjects = false;
     private Text p1_message;
-
     private Text p2_message;
+    public bool gamePaused = false;
+
+    GameObject GameSettings;
 
 
-    GameObject GameSettings; 
+
+
+    // during pausegame the following values need to be stored
+    Vector3 player1Velocity ;
+    Vector3 player2Velocity ;
+    Vector3 player1Angular;
+    Vector3 player2Angular;
+    Vector3 puckVelocity;
+    Vector3 puckAngularVelocity;
+    List<Vector3> bulletBackups = new List<Vector3>();
+
 
     // awake functions
     void Awake()
@@ -117,8 +116,7 @@ public class GameController : MonoBehaviour
     } 
 
     void setPlayerAttributes()
-    {
-        List<int> settings_p1 = new List<int>() { 0, 0, 0 };
+    { 
         player1.GetComponent<PlayerController>().bodyIndex = settings.body_settings_p1;
         player1.GetComponent<MovePlayer>().speed = settings.p1_movement_speed;
         player1.GetComponent<PlayerController>().power = settings.p1_power;
@@ -127,8 +125,7 @@ public class GameController : MonoBehaviour
         player1.GetComponent<PlayerController>().accuracy = settings.p1_accuracy;
         player1.GetComponent<PlayerController>().fireRate = settings.p1_fire_rate;
 
- 
-        List<int> settings_p2 = new List<int>() { 1, 1, 1 };
+  
         player2.GetComponent<PlayerController>().bodyIndex =settings.body_settings_p2;
         player2.GetComponent<MovePlayer>().speed = settings.p2_movement_speed;
         player2.GetComponent<PlayerController>().power = settings.p2_power;
@@ -181,37 +178,115 @@ public class GameController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            QuitGame();
+            gamePaused = true; 
         }
 
-
-        // measure the Remaining time of the session
-        UpdateTime();
-
-        // Finish game after certain time
-        if (sessionRemainingMinutes < 0)
+        if (gamePaused)
         {
-            GameFinished();
+            pauseGame();
         }
-
-        // Finish game based on mode-dependent condition
-        switch (gameMode)
+        else
         {
-            case "DHB":
-                updateDHB();
-                break;
-            case "PUCK":
-                updatePuck();
-                break;
-        
-            default: 
+            // measure the Remaining time of the session
+            UpdateTime();
+
+            // Finish game after certain time
+            if (sessionRemainingMinutes < 0)
+            {
                 GameFinished();
-                break;
+            }
+
+            // Finish game based on mode-dependent condition
+            switch (gameMode)
+            {
+                case "DHB":
+                    updateDHB();
+                    break;
+                case "PUCK":
+                    updatePuck();
+                    break;
+
+                default:
+                    GameFinished();
+                    break;
+            }
         }
     }
+    void pauseGame()
+    {
+        // 
+        p1_message.text ="Game paused; Press q (quit), r (restart), c (continue)";
+        p2_message.text = "Game paused; Press q (quit), r (restart), c (continue)";
 
-    // update the timer
-    void UpdateTime()
+        // save all moving objects:
+         player1Velocity = player1.GetComponent<Rigidbody>().velocity;
+         player2Velocity = player2.GetComponent<Rigidbody>().velocity;
+         player1Angular = player1.GetComponent<Rigidbody>().angularVelocity; 
+         player2Angular = player1.GetComponent<Rigidbody>().angularVelocity;
+         puckVelocity = Vector3.zero;
+         puckAngularVelocity = Vector3.zero;
+
+        if (gameMode == "PUCK")
+        {
+            puckVelocity = Puck.GetComponent<Rigidbody>().velocity;
+            puckAngularVelocity  = Puck.GetComponent<Rigidbody>().angularVelocity;
+
+            Puck.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            Puck.GetComponent<Rigidbody>().angularVelocity = Vector3.zero; 
+        }
+
+        player1.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        player2.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        player1.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        player1.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+
+         for (int i = 0; i < GameObject.FindGameObjectsWithTag("Bullet").Length; i++){// GameObject B in GameObject.FindGameObjectsWithTag("Bullet"))
+    
+            GameObject B = GameObject.FindGameObjectsWithTag("Bullet")[i];
+            bulletBackups.Add(B.GetComponent<Rigidbody>().velocity);
+            B.GetComponent<Rigidbody>().velocity = Vector3.zero; 
+        } 
+        // listen for user input
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            QuitGame();
+        }
+    
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(sceneBuildIndex: 2);
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            p1_message.text = "";
+            p2_message.text = "";
+
+
+            player1.GetComponent<Rigidbody>().velocity = player1Velocity;
+            player2.GetComponent<Rigidbody>().velocity = player2Velocity;
+            player1.GetComponent<Rigidbody>().angularVelocity = player1Angular;
+            player1.GetComponent<Rigidbody>().angularVelocity = player2Angular;
+
+            if (gameMode == "PUCK")
+            {
+                Puck.GetComponent<Rigidbody>().velocity = puckVelocity;
+                Puck.GetComponent<Rigidbody>().angularVelocity = puckAngularVelocity;
+            } 
+            for (int i = 0; i < GameObject.FindGameObjectsWithTag("Bullet").Length; i++)
+            { 
+           
+                    GameObject B = GameObject.FindGameObjectsWithTag("Bullet")[i]; 
+                    B.GetComponent<Rigidbody>().velocity = bulletBackups[i];
+             }
+            gamePaused = false;
+         } 
+
+
+    } 
+
+// update the timer
+void UpdateTime()
     {
         sessionRemainingSeconds -= Time.deltaTime;
         if (sessionRemainingSeconds <= 0)

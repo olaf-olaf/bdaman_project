@@ -21,6 +21,7 @@ TagManager:
   - GameSettings
   - P1Message
   - P2Message
+  - Bullet
   layers:
   - Default
   - TransparentFX

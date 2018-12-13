@@ -36,7 +36,7 @@ public class partSelector : MonoBehaviour
     // these values need to be set in the game menu
     /*         NAME           Default               Range
      * movement_speed           120                  100, 150 
-     * accuracy                  1                   1, 50  
+     * accuracy                  1                   1, 5
      * fire_rate                 0.3                 0.1, 0.8
      * power                     20                  18, 25
      * reload time               3                   2, 4
@@ -68,8 +68,7 @@ public class partSelector : MonoBehaviour
     }
 
 
-    bool horPressed = true;
-
+    bool horPressed = true; 
     bool verPressed = true;
     // Update is called once per frame
     void Update()
