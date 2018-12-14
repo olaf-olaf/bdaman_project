@@ -23,6 +23,7 @@ TagManager:
   - P2Message
   - Bullet
   - GameModeSelect
+  - ControlText
   layers:
   - Default
   - TransparentFX

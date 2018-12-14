@@ -25,5 +25,16 @@ public class PuckController : MonoBehaviour {
         StartCoroutine(RestartBall());
          
     }
+    void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("");
+        if (other.CompareTag("Goal"))
+        { 
+            Debug.Log("GOALL puckkie");
 
+            Reset();
+
+        }
+
+    }
 }

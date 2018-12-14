@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44300273, g: 0.49219579, b: 0.5719249, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2449,7 +2449,6 @@ GameObject:
   - component: {fileID: 1099002436}
   - component: {fileID: 1099002440}
   - component: {fileID: 1099002439}
-  - component: {fileID: 1099002438}
   - component: {fileID: 1099002437}
   - component: {fileID: 1099002441}
   m_Layer: 0
@@ -2508,27 +2507,15 @@ MonoBehaviour:
   accuracy: 0
   fireRate: 0
   initRotation: -95
+  speed: 0
+  horAxis: Horizontal_p1
+  verAxis: Vertical_p1
   player: {fileID: 1099002435}
   spawnDistance: 0.5
   bulletSpawn: {fileID: 0}
   fireButton: l
   magazineText: {fileID: 1164929305}
   bodyIndex: 
---- !u!114 &1099002438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1099002435}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fdbc5fe720999d489fed260449d6a6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 1099002435}
-  speed: 90
-  horAxis: Horizontal_p1
-  verAxis: Vertical_p1
 --- !u!114 &1099002439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2882,7 +2869,6 @@ GameObject:
   - component: {fileID: 1308603018}
   - component: {fileID: 1308603017}
   - component: {fileID: 1308603016}
-  - component: {fileID: 1308603015}
   - component: {fileID: 1308603014}
   - component: {fileID: 1308603019}
   m_Layer: 0
@@ -2921,27 +2907,15 @@ MonoBehaviour:
   accuracy: 0
   fireRate: 0
   initRotation: -95
+  speed: 0
+  horAxis: Horizontal_p2
+  verAxis: Vertical_p2
   player: {fileID: 1308603013}
   spawnDistance: 0.5
   bulletSpawn: {fileID: 0}
   fireButton: v
   magazineText: {fileID: 225895533}
   bodyIndex: 
---- !u!114 &1308603015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1308603013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fdbc5fe720999d489fed260449d6a6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 1308603013}
-  speed: 90
-  horAxis: Horizontal_p2
-  verAxis: Vertical_p2
 --- !u!114 &1308603016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3403,10 +3377,10 @@ MeshCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1531431318}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
@@ -3702,6 +3676,7 @@ GameObject:
   - component: {fileID: 1716205386}
   - component: {fileID: 1716205385}
   - component: {fileID: 1716205384}
+  - component: {fileID: 1716205389}
   m_Layer: 0
   m_Name: Puck
   m_TagString: Puck
@@ -3792,6 +3767,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1716205389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1716205383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86b269b74042b7046b6f5603a7b796d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialPos: {x: 0, y: 0.1, z: 0}
 --- !u!1 &1726722988 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 62398807df361469f9cb54e246f97fe8,
@@ -3898,10 +3885,10 @@ MeshCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1787314213}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}

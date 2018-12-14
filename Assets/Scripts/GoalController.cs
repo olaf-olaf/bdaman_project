@@ -7,13 +7,13 @@ public class GoalController : MonoBehaviour {
     public int points = 0;
 
     void OnTriggerEnter(Collider other)
-    {
+    { 
         if (other.CompareTag("Puck"))
         {
             points += 1;
             Debug.Log("GOALL");
 
-            GameObject.FindGameObjectWithTag("Puck").GetComponent<PuckController>().Reset();
+            other.GetComponent<PuckController>().Reset();
 
         }
         
