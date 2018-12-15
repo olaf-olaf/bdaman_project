@@ -25,8 +25,10 @@ public class MenuController : MonoBehaviour
         {
             backPanelRotation = new Quaternion(1, 1, 1, 1);
             gameModeSelection = true;
-            GameObject.FindGameObjectWithTag("ControlText").GetComponent<Text>().text = "[backspace to return]";
-           print("ENTER PRESSED");
+
+            GameObject.FindGameObjectWithTag("P1Select").GetComponent<Text>().text = "";
+            GameObject.FindGameObjectWithTag("P2Select").GetComponent<Text>().text = "";
+            print("ENTER PRESSED");
         }
 
         if (Input.GetKeyDown("backspace") && gameModeSelection == true && backPanelRotation.w < 0.001f)
@@ -34,7 +36,8 @@ public class MenuController : MonoBehaviour
             frontPanelRotation = new Quaternion(0, 0, 0, 0);
             gameModeSelection = false;
 
-            GameObject.FindGameObjectWithTag("ControlText").GetComponent<Text>().text = "p1; arrow keys, p2; wsad";
+            GameObject.FindGameObjectWithTag("P1Select").GetComponent<Text>().text = "use downarrow, rightarrow to select";
+            GameObject.FindGameObjectWithTag("P2Select").GetComponent<Text>().text = "Use s,a to select";
         }
         if (Input.GetKeyDown("space") && gameModeSelection == true && backPanelRotation.w < 0.001f)
         {

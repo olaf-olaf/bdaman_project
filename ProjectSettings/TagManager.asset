@@ -24,6 +24,8 @@ TagManager:
   - Bullet
   - GameModeSelect
   - ControlText
+  - P1Select
+  - P2Select
   layers:
   - Default
   - TransparentFX

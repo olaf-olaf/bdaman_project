@@ -217,8 +217,8 @@ public class GameController : MonoBehaviour
     {
         //
         gamePaused = true;
-        p1_message.text ="Game paused; Press q (quit), r (restart), c (continue)";
-        p2_message.text = "Game paused; Press q (quit), r (restart), c (continue)";
+        p1_message.text ="Paused";
+        p2_message.text = "Paused";
 
         // save all moving objects:
          player1Velocity = player1.GetComponent<Rigidbody>().velocity;
