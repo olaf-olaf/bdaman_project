@@ -123,8 +123,7 @@ public class GameController : MonoBehaviour
         player1.GetComponent<PlayerController>().reloadTime = settings.p1_reload_time;
         player1.GetComponent<PlayerController>().accuracy = settings.p1_accuracy;
         player1.GetComponent<PlayerController>().fireRate = settings.p1_fire_rate;
-
-
+         
         player2.GetComponent<PlayerController>().bodyIndex =settings.body_settings_p2;
         player2.GetComponent<PlayerController>().speed = settings.p2_movement_speed;
         player2.GetComponent<PlayerController>().power = settings.p2_power;
