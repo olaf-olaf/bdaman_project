@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     private GameObject chilBulletTwo;
     public Text magazineText;
     public List<int> bodyIndex;
-
+    public bool cannot_Fire = false;
     private void Start()
     {
         rb = player.GetComponent<Rigidbody>();
@@ -48,11 +48,10 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        bool paused = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().gamePaused;
+    { 
          
             // Determine if player is allowed to shoot 
-            if (Time.time > fireRate + lastShot & remainingBullets > 0 & !paused)
+            if (Time.time > fireRate + lastShot & remainingBullets > 0 & !cannot_Fire)
         {
             // Shoot  
             if (Input.GetKeyDown(fireButton))

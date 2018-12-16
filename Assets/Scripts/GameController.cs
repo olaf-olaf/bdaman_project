@@ -87,10 +87,12 @@ public class GameController : MonoBehaviour
         gameMode = settings.GameMode;
 
         p1_message = GameObject.FindGameObjectWithTag("P1Message").GetComponent<Text>();
-        p1_message.text = "";
-        p2_message = GameObject.FindGameObjectWithTag("P2Message").GetComponent<Text>();
-        p2_message.text = "";
+        p1_message.text = "Use keyArrows to move, 'l' to shoot";
+        //p1_message.fontSize = 6;
 
+        p2_message = GameObject.FindGameObjectWithTag("P2Message").GetComponent<Text>();
+        p2_message.text = "Use wsad to move, 'v' to shoot";
+       // p2_message.fontSize = 6;
         // set general player attributes
         setPlayerAttributes();
 
@@ -112,7 +114,10 @@ public class GameController : MonoBehaviour
                 GameFinished();
                 break;
         }
+         
+
     }
+     
 
     void setPlayerAttributes()
     {
@@ -172,6 +177,7 @@ public class GameController : MonoBehaviour
     }
 
 
+    float initTime = 0;
 
     // update functions
     void Update()
@@ -188,8 +194,40 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            // measure the Remaining time of the session
-            UpdateTime();
+
+            initTime += Time.deltaTime;
+
+            if (initTime < 6)
+            {
+                int countDown = (int)(6 - initTime);
+
+                player1.GetComponentInChildren<Text>().text = "Starting in " + countDown.ToString();  
+                player2.GetComponentInChildren<Text>().text = "Starting in " + countDown.ToString();
+
+                player1.GetComponent<PlayerController>().cannot_Fire = true;
+
+                player2.GetComponent<PlayerController>().cannot_Fire = true;
+
+            } else if (initTime > 6 & initTime< 10)
+            {
+                p1_message.text = "";
+
+                p2_message.text = "";
+
+                player1.GetComponent<PlayerController>().cannot_Fire = false;
+
+                player2.GetComponent<PlayerController>().cannot_Fire = false;
+            }
+
+
+             else
+            {
+                 
+              // measure the Remaining time of the session
+                UpdateTime();
+            }
+
+             
 
             // Finish game after certain time
             if (sessionRemainingMinutes < 0)
@@ -216,6 +254,10 @@ public class GameController : MonoBehaviour
     void pauseGame()
     {
         //
+
+        player1.GetComponent<PlayerController>().cannot_Fire = true;
+
+        player2.GetComponent<PlayerController>().cannot_Fire = true;
         gamePaused = true;
         p1_message.text ="Paused";
         p2_message.text = "Paused";
@@ -242,7 +284,7 @@ public class GameController : MonoBehaviour
         player1.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         player1.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
 
-         for (int i = 0; i < GameObject.FindGameObjectsWithTag("Bullet").Length; i++){// GameObject B in GameObject.FindGameObjectsWithTag("Bullet"))
+         for (int i = 0; i < GameObject.FindGameObjectsWithTag("Bullet").Length; i++){ 
 
             GameObject B = GameObject.FindGameObjectsWithTag("Bullet")[i];
             bulletBackups.Add(B.GetComponent<Rigidbody>().velocity);
@@ -325,19 +367,33 @@ void UpdateTime()
 
             //check if one of the goals has surpassed the maximum
 
-            if (goal.GetComponent<GoalController>().points >= maxGoals)
+            if (goal.GetComponent<GoalController>().points >= settings.maxGoals)
             {
                 GameWon(goal.GetComponent<GoalController>().scoringPlayer);
             }
 
         }
     }
+
+    IEnumerator Example()
+    {
+
+        yield return new WaitForSeconds(10); 
+
+         
+    }
+
     void GameWon(GameObject winningPlayer)
     {
+        {
+            StartCoroutine(Example());
+        }
+
         p1_message.text = winningPlayer.tag + " won";
         p2_message.text = winningPlayer.tag + " won";
 
-         GameFinished();
+
+        GameFinished();
     }
 
 

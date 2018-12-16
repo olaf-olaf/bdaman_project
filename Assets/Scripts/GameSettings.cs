@@ -24,8 +24,8 @@ public class GameSettings : MonoBehaviour {
     public float p2_reload_time;
     public int p2_mag_size;
     public List<int> body_settings_p2 = new List<int>();
-    
 
+    public int maxGoals = 3;
     // Use this for initialization
     void Awake() {
         DontDestroyOnLoad(this);
@@ -68,6 +68,9 @@ public class GameSettings : MonoBehaviour {
         body_settings_p2.Add(p2.GetComponent<partSelector>().armIndex);
         body_settings_p2.Add(p2.GetComponent<partSelector>().feetIndex);
         body_settings_p2.Add(p2.GetComponent<partSelector>().cannonIndex);
+        
+
+
 
         SceneManager.LoadScene(sceneBuildIndex: 2);
     }
