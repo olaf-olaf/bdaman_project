@@ -87,11 +87,11 @@ public class GameController : MonoBehaviour
         gameMode = settings.GameMode;
 
         p1_message = GameObject.FindGameObjectWithTag("P1Message").GetComponent<Text>();
-        p1_message.text = "Use keyArrows to move, 'l' to shoot";
+        p1_message.text = "Use keyArrows to move, 'l' to shoot, p for pause";
         //p1_message.fontSize = 6;
 
         p2_message = GameObject.FindGameObjectWithTag("P2Message").GetComponent<Text>();
-        p2_message.text = "Use wsad to move, 'v' to shoot";
+        p2_message.text = "Use wsad to move, 'v' to shoot, p for pause";
        // p2_message.fontSize = 6;
         // set general player attributes
         setPlayerAttributes();
@@ -208,7 +208,7 @@ public class GameController : MonoBehaviour
 
                 player2.GetComponent<PlayerController>().cannot_Fire = true;
 
-            } else if (initTime > 6 & initTime< 10)
+            } else if (initTime > 6 & initTime< 7)
             {
                 p1_message.text = "";
 
@@ -259,8 +259,8 @@ public class GameController : MonoBehaviour
 
         player2.GetComponent<PlayerController>().cannot_Fire = true;
         gamePaused = true;
-        p1_message.text ="Paused";
-        p2_message.text = "Paused";
+        p1_message.text ="Paused, c (continue), r (restart), q (quit)";
+        p2_message.text = "Paused, c (continue), r (restart), q (quit)";
 
         // save all moving objects:
          player1Velocity = player1.GetComponent<Rigidbody>().velocity;

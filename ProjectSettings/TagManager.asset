@@ -26,6 +26,7 @@ TagManager:
   - ControlText
   - P1Select
   - P2Select
+  - Pin
   layers:
   - Default
   - TransparentFX
