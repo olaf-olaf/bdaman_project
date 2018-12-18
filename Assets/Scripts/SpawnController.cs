@@ -12,34 +12,37 @@ public class SpawnController : MonoBehaviour {
     public float spawnLeastWait;
     public int startWait;
     public bool stop;
-    public bool  pcgOn = false;
+    public bool  pcgOn = true;
 
-    int randPin;
-	// Use this for initialization
+    int randPin; 
 	void Start () {
-
-
+         
         foreach (GameObject pin in pins)
         {
             pin.SetActive(false);
         } 
         StartCoroutine(waitSpawner());
 	}
-	
-	// Update is called once per frame
+	 
 	void Update () {
-        spawnWait = Random.Range(spawnLeastWait, spawnMostWait);
+        spawnWait = Random.Range(spawnLeastWait, spawnMostWait) + Time.time;
 	}
     IEnumerator waitSpawner()
     {
-        yield return new WaitForSeconds(startWait);
-        while (!stop & pcgOn)
+        while (pcgOn)
         {
-            randPin = Random.Range(0, 2);
-            Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), 1, Random.Range(-spawnValues.z, spawnValues.z));
-            Instantiate(pins[randPin], spawnPosition + transform.TransformPoint(0, 0, 0), gameObject.transform.rotation);
-            yield return new WaitForSeconds(spawnWait);
-      
+            if (spawnWait < Time.time)
+            {
+
+                randPin = Random.Range(0, 2);
+                Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), 1, Random.Range(-spawnValues.z, spawnValues.z));
+                pins[randPin].SetActive(true);
+
+                pins[randPin].transform.position = spawnPosition;
+                //Instantiate(pins[randPin], spawnPosition + transform.TransformPoint(0, 0, 0), gameObject.transform.rotation);
+                yield return new WaitForSeconds(spawnWait);
+                pins[randPin].SetActive(false);
+            }
         }
     }
 
