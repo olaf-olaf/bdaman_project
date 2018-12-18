@@ -12,26 +12,23 @@ public class SelectGameMode : MonoBehaviour {
     public bool content_generation = false;
     Text obs;
     Text goals;
-
+    private float time = 0;
     // Use this for initialization
     void Start () {
         obs = GameObject.FindGameObjectWithTag("ObstacleText").GetComponent<Text>();
         goals = GameObject.FindGameObjectWithTag("GoalText").GetComponent<Text>();
         obs.text = "";
         goals.text = "";
+
         setGameModeColor(); 
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
+        time += Time.deltaTime;
         // selecting game mode
-        if ( MenuController.gameModeSelection == true){
-
-
-           
-
-            
+        if ( MenuController.gameModeSelection == true && time  > 2.5){ 
 
             if (gameModeElement == 1)
             {
@@ -46,7 +43,8 @@ public class SelectGameMode : MonoBehaviour {
             }
 
 
-            if(Input.GetKeyDown(KeyCode.DownArrow)){
+            if(Input.GetKeyDown(KeyCode.DownArrow))
+            {
                 gameModeElement = (gameModeElement + 1) % gameModes.Length;
                 setGameModeColor();
                 content_generation = false;
@@ -75,14 +73,8 @@ public class SelectGameMode : MonoBehaviour {
             {
                 content_generation = false;
 
-            }
-
-
-        }
-
-
-
-
+            } 
+        } 
     }
 
     void setGameModeColor(){

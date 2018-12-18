@@ -28,7 +28,7 @@ public class MenuController : MonoBehaviour
 
             GameObject.FindGameObjectWithTag("P1Select").GetComponent<Text>().text = "";
             GameObject.FindGameObjectWithTag("P2Select").GetComponent<Text>().text = "";
-            print("ENTER PRESSED");
+     
         }
 
         if (Input.GetKeyDown("backspace") && gameModeSelection == true && backPanelRotation.w < 0.001f)
