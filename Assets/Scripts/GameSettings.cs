@@ -25,7 +25,8 @@ public class GameSettings : MonoBehaviour {
     public int p2_mag_size;
     public List<int> body_settings_p2 = new List<int>();
 
-    public int maxGoals = 3;
+    public int maxGoals;
+    public bool contentGeneration;
     // Use this for initialization
     void Awake() {
         DontDestroyOnLoad(this);
@@ -48,6 +49,10 @@ public class GameSettings : MonoBehaviour {
         // get the current state of the parameters
         float[] settings_p1 = p1.GetComponent<partSelector>().current_stats;
         float[] settings_p2 = p2.GetComponent<partSelector>().current_stats;
+
+        maxGoals = modeSelection.maxGoals;
+        contentGeneration = modeSelection.content_generation;
+
 
         p1_movement_speed = settings_p1[0];
         p1_accuracy = settings_p1[1]/10;

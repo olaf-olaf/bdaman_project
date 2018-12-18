@@ -16,9 +16,7 @@ public class GameController : MonoBehaviour
 
     // max suration of a session
     public int sessionDuration = 5;
-
-    // max amount of goals
-    public int maxGoals = 2;
+     
 
     // these values need to be set in the game menu
     /*         NAME           Default               Range
@@ -45,8 +43,7 @@ public class GameController : MonoBehaviour
     private Text p1_message;
     private Text p2_message;
     public bool gamePaused = false;
-
-    GameObject GameSettings;
+     
 
 
 
@@ -78,9 +75,9 @@ public class GameController : MonoBehaviour
         }
 
         // init settings
-        GameSettings = GameObject.FindGameObjectWithTag("GameSettings");
+        GameObject GameSettings = GameObject.FindGameObjectWithTag("GameSettings");
         settings = GameSettings.GetComponent<GameSettings>();
-
+  
         // init players
         player1 = GameObject.FindGameObjectWithTag("Player1");
         player2 = GameObject.FindGameObjectWithTag("Player2");

@@ -49,7 +49,7 @@ public class MenuController : MonoBehaviour
 
 
 
-            if (gameModeSelection == true  && backPanelRotation.w > 0.001f )
+        if (gameModeSelection == true  && backPanelRotation.w > 0.001f )
         {
             backPanelRotation = Quaternion.Slerp(myTransform.rotation, Quaternion.LookRotation(backPanel.position - myTransform.position), rotationSpeed * Time.deltaTime);
             myTransform.rotation = backPanelRotation;

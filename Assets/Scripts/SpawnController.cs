@@ -12,11 +12,13 @@ public class SpawnController : MonoBehaviour {
     public float spawnLeastWait;
     public int startWait;
     public bool stop;
-    public bool  pcgOn = true;
+    private bool  pcgOn = true;
 
     int randPin; 
 	void Start () {
-         
+        GameSettings GameSettings = GameObject.FindGameObjectWithTag("GameSettings").GetComponent<GameSettings>();
+        pcgOn = GameSettings.contentGeneration;
+
         foreach (GameObject pin in pins)
         {
             pin.SetActive(false);

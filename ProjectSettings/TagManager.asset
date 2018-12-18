@@ -27,6 +27,8 @@ TagManager:
   - P1Select
   - P2Select
   - Pin
+  - ObstacleText
+  - GoalText
   layers:
   - Default
   - TransparentFX
